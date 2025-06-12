@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Web này dành cho Em</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f4f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .login-box {
+      background: white;
+      padding: 30px 40px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      width: 300px;
+      text-align: center;
+    }
+    input {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 1rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      background: #4CAF50;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #45a049;
+    }
+    .error {
+      color: red;
+      margin-top: 10px;
+    }
+    .hint {
+      color: blue;
+      margin-top: 10px;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-box">
+    <h2>Đăng nhập</h2>
+    <h5>vào trái tim anh</h5>
+    <input id="username" type="text" placeholder="Tên đăng nhập" />
+    <input id="password" type="password" placeholder="Mật khẩu" />
+    <button onclick="login()">Đăng nhập</button>
+    <div id="error-msg" class="error"></div>
+    <div id="hint-msg" class="hint"></div>
+  </div>
+
+  <script>
+    let failCount = 0;
+
+    function login() {
+      const user = document.getElementById('username').value.trim();
+      const pass = document.getElementById('password').value.trim();
+      const errorMsg = document.getElementById('error-msg');
+      const hintMsg = document.getElementById('hint-msg');
+
+      errorMsg.textContent = '';
+      hintMsg.textContent = '';
+
+      if(user === 'VungTau' && pass === '20062024') 
+      {
+        window.location.href = 'anhem.html'; 
+      } 
+      else 
+      {
+        failCount++;
+        errorMsg.textContent = 'Tên đăng nhập hoặc mật khẩu không đúng!';
+
+        if(failCount == 3) 
+        {
+          hintMsg.textContent = 'Gợi ý: Tên đăng nhập là chữ.';
+        }
+        else if(failCount == 4)
+        {
+            hintMsg.textContent = 'Gợi ý: Mật khẩu là số.';
+        }
+        else if(failCount == 5)
+        {
+            hintMsg.textContent = 'Gợi ý: Tên đăng nhập là 1 địa danh.';
+        }
+        else if(failCount == 6)
+        {
+            hintMsg.textContent = 'HẾT GỢI Ý.';
+        }
+      }
+    }
+  </script>
+</body>
+</html>

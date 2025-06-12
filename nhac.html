@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Gửi Em</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fff0f5;
+      text-align: center;
+      padding: 50px;
+      overflow-x: hidden;
+      position: relative;
+      height: 100vh;
+    }
+    #lyrics {
+      margin-top: 30px;
+      font-size: 1.2rem;
+      color: plum;
+      min-height: 100px;
+    }
+    .highlight {
+      color: plum;
+      font-weight: bold;
+      transition: opacity 0.3s ease;
+    }
+    
+    .love-text {
+      color: red;
+      font-weight: bold;
+      font-size: 2rem;
+      margin: 20px 0;
+      position: relative;
+      display: inline-block;
+    }
+    .heart {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      background: red;
+      transform: rotate(-45deg);
+      z-index: 1000;
+      pointer-events: none;
+    }
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      border-radius: 50%;
+    }
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+    .heart::after {
+      left: 10px;
+      top: 0;
+    }
+  </style>
+</head>
+<body>
+  <h2>🎶 Gửi Em Bé Phương Anh 🎶</h2>
+  <audio id="audio" controls autoplay>
+    <source src="y2mate (mp3cut.net).mp3" type="audio/mpeg" />
+  </audio>
+
+  <div id="lyrics"></div>
+
+  <script>
+    const lyrics = [
+      { time: 0, text: "Vài lời gửi đến em rằng “chừng nào chết anh mới hết yêu em”" },
+      { time: 4, text: "Dành tặng em hết ân tình để đổi lấy ít phút cạnh em" },
+      { time: 8, text: "Và ngày phút giây này" },
+      { time: 10, text: "Tim ta như đắm say, yêu thương ngất ngây" },
+      { time: 13, text: "Dù tận đến mãi sau này" },
+      { time: 16, text: "Dù cho thế giới có đổi thay" },
+      { time: 18.5, text: "Nhưng mà tình yêu vẫn đong đầy" },
+      { time: 21, text: "Anh sẽ cố níu giữ chặt tay" },
+      { time: 23, text: "Hằng đêm ôm em lâu thật lâu" },
+      { time: 25.5, text: "Môi hôn sâu thật sâu" },
+      { time: 27.5, text: "Trao em bao yêu thương anh chôn giấu" }
+    ];
+
+    const audio = document.getElementById("audio");
+    const lyricsDiv = document.getElementById("lyrics");
+    let current = 0;
+
+    audio.ontimeupdate = () => {
+      if (current < lyrics.length && audio.currentTime >= lyrics[current].time) {
+        lyricsDiv.innerHTML = `<span class="highlight">${lyrics[current].text}</span>`;
+        current++;
+      }
+    };
+
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.style.left = Math.random() * window.innerWidth + "px";
+      heart.style.top = "-30px"; 
+      heart.style.opacity = 1;
+
+      const speed = 1 + Math.random() * 2;
+
+      function fall() {
+        const currentTop = parseFloat(heart.style.top);
+        if (currentTop < window.innerHeight) {
+          heart.style.top = currentTop + speed + "px";
+          requestAnimationFrame(fall);
+        } else {
+          heart.remove();
+        }
+      }
+      document.body.appendChild(heart);
+      requestAnimationFrame(fall);
+    }
+
+    audio.onended = () => {
+      lyricsDiv.innerHTML = `<span class="love-text">Anh yêu em</span>`;
+      setInterval(createHeart, 200);
+    };
+  </script>
+</body>
+</html>
